@@ -7,7 +7,7 @@
  * Return: void.
  */
 
-void push(stack_t **stack, char *n, int line_number)
+void push(stack_t **stack, int line_number)
 {
 	if (stack == NULL)
 	{
