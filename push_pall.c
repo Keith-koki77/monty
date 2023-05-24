@@ -59,3 +59,26 @@ void pall(stack_t **stack, int line_number)
 		temp = temp->next;
 	}
 }
+
+/**
+ * free_stack - function that frees the stack.
+ * @stack: pointer to pointer to head of stack.
+ * Return: void.
+ */
+void free_stack(stack_t **stack)
+{
+	if (stack == NULL || *stack == NULL)
+		return;
+
+	stack_t *current = *stack;
+	stack_t *node = NULL;
+
+	while (current != NULL)
+	{
+		next_node = current->next;
+		free(current);
+		current = next_node;
+	}
+
+	*stack = NULL;
+}
