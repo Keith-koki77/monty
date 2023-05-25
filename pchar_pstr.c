@@ -9,20 +9,24 @@
  */
 void pchar(stack_t **stack, unsigned int line_number)
 {
+	stack_t *temp = *stack;
+	char c;
+	int value;
+
 	if (stack == NULL || *stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *temp = *stack;
+	
 
 	while (temp->prev != NULL)
 	{
 		temp = temp->prev;
 	}
 
-	int value = temp->data;
+	value = temp->n;
 
 	if (!isalpha(value))
 	{
@@ -30,7 +34,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	char c = (char)value;
+	c = (char)value;
 
 	printf("%c\n", c);
 }
@@ -43,14 +47,14 @@ void pchar(stack_t **stack, unsigned int line_number)
  */
 void pstr(stack_t **stack, unsigned int line_number)
 {
-	char res[1024] = ""; /*Assuming maximum length of string*/
+	char *res = malloc(1024 *sizeof(char)); /*Assuming maximum length of string*/
 	int index = 0;
 	stack_t *temp = *stack;
 	(void)line_number;
 
-	while (temp != NULL && temp->data != 0 && isalpha(temp->data))
+	while (temp != NULL && temp->n != 0 && isalpha(temp->n))
 	{
-		char c = (char)temp->data;
+		char c = (char)temp->n;
 
 		printf("%c", c);
 		res[index] = c;
@@ -59,4 +63,5 @@ void pstr(stack_t **stack, unsigned int line_number)
 	}
 
 	printf("\n");
+	free(res);
 }

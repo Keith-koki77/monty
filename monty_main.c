@@ -9,7 +9,7 @@
  */
 int main(int ac, char **av)
 {
-	FILE* stream = NULL;
+	FILE *stream = NULL;
 
 	if (ac != 2)
 	{
@@ -17,8 +17,7 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 
-	stream = open_file(av[1]);
-	read_file(stream);
+	stream = fopen(av[1], "r");
 	fclose(stream);
 
 	return (EXIT_SUCCESS);

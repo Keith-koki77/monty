@@ -9,13 +9,16 @@
 
 void push(stack_t **stack, unsigned int line_number)
 {
+	stack_t *new_node;
+
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L%d: stack not found\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *new_node = malloc(sizeof(stack_t));
+	
+	new_node = malloc(sizeof(stack_t));
 
 	if (new_node == NULL)
 	{
@@ -30,7 +33,6 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	new_node->data = data;
 	new_node->next = *stack;
 	new_node->prev = NULL;
 
@@ -51,7 +53,7 @@ void push(stack_t **stack, unsigned int line_number)
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp = *stack;
-	(void)nline;
+	(void)line_number;
 
 	while (temp != NULL)
 	{
@@ -67,11 +69,13 @@ void pall(stack_t **stack, unsigned int line_number)
  */
 void free_stack(stack_t **stack)
 {
+	stack_t *current = *stack;
+	stack_t *next_node;
+
 	if (stack == NULL || *stack == NULL)
 		return;
 
-	stack_t *current = *stack;
-	stack_t *node = NULL;
+	
 
 	while (current != NULL)
 	{
@@ -89,18 +93,17 @@ void free_stack(stack_t **stack)
  * @check_0: checks if the string has integer value.
  * Return: integer value if success or 0 in failure.
  */
-int atoi_int(int n, int check_0)
+int atoi_int(int n, int check_0, char **token)
 {
 	int int_atoi = 0;
 
 	if (token[1])
 	{
-		int atoi = atoi(token[1]);
+		int_atoi = atoi(token[1]);
 	}
 	if (!int_atoi && check_0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", n);
-		flag = 1;
 	}
 
 	return (int_atoi);

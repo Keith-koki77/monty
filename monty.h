@@ -1,9 +1,21 @@
+#ifndef _MONTY_H_
+#define _MONTY_H_
+
+#define _POSIX_C_SOURCE  200809L
+#define _GNU_SOURCE
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <fcntl.h>
+
+#define DELIMS " \n\t\a\b"
+
+
+extern int flag;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -60,16 +72,17 @@ typedef struct instruction_s
 /*Stack Function Prototypes*/
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
+int atoi_int(int n, int check_0, char **token);
 void free_stack(stack_t **stack);
 void pop(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void sub(stack_t **stack, unsigned int line_number);
-void div(stack_t **stack, unsigned int line_number);
+void divd(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
-void rotl(stack_t **stack, unsigned int line_number);
-void rotr(stack_t **stack, unsigned int line_number);
+void rotl(stack_t **stack, unsigned int line_number __attribute__((unused)));
+void rotr(stack_t **stack, unsigned int line_number __attribute__((unused)));
 void queue_push(stack_t **stack, unsigned int line_number, int arg);
 void addst(stack_t **stack, unsigned int line_number);
 void addqu(stack_t **stack, unsigned int line_number);

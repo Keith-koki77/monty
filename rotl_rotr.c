@@ -6,8 +6,9 @@
  * @line_number: line number of the file
  * Return: void.
  */
-void rotl(stack_t **stack, unsigned int line_number)
+void rotl(stack_t **stack, unsigned int line_number __attribute__((unused)))
 {
+
 	if (*stack && (*stack)->next)
 	{
 		stack_t *temp = *stack;
@@ -29,11 +30,13 @@ void rotl(stack_t **stack, unsigned int line_number)
  * @line_number: line number of the file.
  * Return: void
  */
-void rotr(stack_t **stack, unsigned int line_number)
+void rotr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 {
+
+
 	if (*stack && (*stack)->next)
 	{
-		stack_t *temp = *head;
+		stack_t *temp = *stack;
 
 		while (temp->next)
 			temp = temp->next;
@@ -55,13 +58,15 @@ void rotr(stack_t **stack, unsigned int line_number)
  */
 void queue_push(stack_t **stack, unsigned int line_number, int arg)
 {
+	stack_t *new_node;
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L%d: stack not found\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *new_node = malloc(sizeof(stack_t));
+	
+	new_node = malloc(sizeof(stack_t));
 
 	if (new_node == NULL)
 	{
@@ -101,8 +106,6 @@ void addst(stack_t **stack, unsigned int line_number)
 {
 	(void)line_number;
 	(void)stack;
-
-	arg.flag = 0;
 }
 
 /**
@@ -116,6 +119,4 @@ void addqu(stack_t **stack, unsigned int line_number)
 {
 	(void)line_number;
 	(void)stack;
-
-	arg.flag = 1;
 }

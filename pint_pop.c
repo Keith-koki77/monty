@@ -10,7 +10,7 @@ void pint(stack_t **stack, unsigned int line_number)
 {
 	if (!(*stack))
 	{
-		fprintf(STDERR_FILENO, "L%u: can't pint, stack empty\n", line_number);
+		dprintf(STDERR_FILENO, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
@@ -78,9 +78,11 @@ void swap(stack_t **stack, unsigned int line_number)
 	}
 
 	else
+	{
 		(*stack)->next = NULL;
 		(*stack)->prev = tmp;
 		tmp->next = *stack;
 		tmp->prev = NULL;
 		*stack = tmp;
+	}
 }
