@@ -82,3 +82,26 @@ void free_stack(stack_t **stack)
 
 	*stack = NULL;
 }
+
+/**
+ * atoi_int -  function that converts a string into an integer
+ * @n: instruction line number.
+ * @check_0: checks if the string has integer value.
+ * Return: integer value if success or 0 in failure.
+ */
+int atoi_int(int n, int check_0)
+{
+	int int_atoi = 0;
+
+	if (token[1])
+	{
+		int atoi = atoi(token[1]);
+	}
+	if (!int_atoi && check_0)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", n);
+		flag = 1;
+	}
+
+	return (int_atoi);
+}
