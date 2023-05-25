@@ -29,8 +29,9 @@ typedef struct stack_s
  * @f: function to handle the opcode
  *
  * Description: opcode and its function
- * for stack, queues, LIFO, FIFO
+ * for stack, queues, LIFO, FIFO,
  */
+
 typedef struct instruction_s
 {
         char *opcode;
