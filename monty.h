@@ -34,6 +34,18 @@ typedef struct arg_s
 
 extern arg_t arg;
 
+/**
+* struct freed - to free mem
+* @line: line
+* @temp: temporary
+* @stream: file
+*/
+typedef struct freed
+{
+	char *line, *temp;
+	FILE *stream;
+} doit;
+extern doit free_mem;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -88,5 +100,7 @@ void addst(stack_t **stack, unsigned int line_number);
 void addqu(stack_t **stack, unsigned int line_number);
 void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void opcode_select(stack_t **stack, unsigned int line_number);
 
 #endif
