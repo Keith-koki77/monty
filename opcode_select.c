@@ -9,10 +9,6 @@
 
 void opcode_select(stack_t **stack, unsigned int line_number)
 {
-	int tgt = 0;
-	int x = 0;
-	char *tkn = strdup(free_mem.line);
-
 	instruction_t op[] = {
 		{"push", push},
 		{"pall", pall},
@@ -25,14 +21,26 @@ void opcode_select(stack_t **stack, unsigned int line_number)
 		{"mul", mul},
 		{"nop", nop},
 		{NULL, NULL}};
-	free_mem.temp = tkn;
+
+	int tgt = 0;
+	int x = 0;
+	char *tkn = strdup(free_mem.line);
+	char *newline = strchr(tkn, '\n');
+
+	while (isspace(*tkn))
+		tkn++;
+
+	if (newline != NULL)
+		*newline = '\0';
+
 	if (tkn == NULL)
 	{
 		free(free_mem.temp);
 		return;
 	}
+	free_mem.temp = tkn;
 
-	else if (tkn[0] != '\0' && tkn[0] == '#')
+	if (tkn[0] != '\0' && tkn[0] == '#')
 	{
 		free(free_mem.temp);
 		return;
@@ -40,7 +48,7 @@ void opcode_select(stack_t **stack, unsigned int line_number)
 
 	while (op[x].opcode != NULL)
 	{
-	if (strcmp(tkn, op[x].opcode) == 0)
+	if (strcasecmp(tkn, op[x].opcode) == 0)
 	{
 		tgt = 1;
 		(op[x].f)(stack, line_number);

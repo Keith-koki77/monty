@@ -15,7 +15,8 @@ int main(int ac, char **av)
 	stack_t *stack = NULL;
 	size_t length = 0;
 	ssize_t size_line;
-	char *namefile = av[1];
+	char *namefile;
+	namefile = av[1];
 
 	free_mem.stream = fopen(namefile, "r");
 	if (ac != 2)

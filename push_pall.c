@@ -9,32 +9,44 @@
 
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new_node;
+	char *tok;
+	stack_t *new_node = NULL;
+	int no = 0;
 
-	if (stack == NULL)
+	tok = strtok(free_mem.line, DELIMS);
+	if (tok == NULL)
 	{
-		fprintf(stderr, "L%d: stack not found\n", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	
-	new_node = malloc(sizeof(stack_t));
+	tok = strtok(NULL, DELIMS);
+	if (tok == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
+	while (tok[no] != '\0')
+	{
+		if ((tok[no] < '0' || tok[no] > '9') && tok[no] != '-')
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			exit(EXIT_FAILURE);
+		}
+		no++;
+	}
+
+	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
-		fprintf(stderr, "Error, malloc failed\n");
-
-		while (stack != NULL)
-		{
-			stack_t *temp = *stack;
-			*stack = (*stack)->next;
-			free(temp);
-		}
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
-	new_node->next = *stack;
+	new_node->n = atoi(tok);
 	new_node->prev = NULL;
+	new_node->next = *stack;
 
 	if (*stack != NULL)
 	{
@@ -43,6 +55,7 @@ void push(stack_t **stack, unsigned int line_number)
 
 	*stack = new_node;
 }
+
 
 /**
  * pall - function that prints the data of all nodes in the stack
