@@ -9,53 +9,38 @@
 
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *tok;
-	stack_t *new_node = NULL;
-	int no = 0;
+	stack_t *new_node;
+	int info;
 
-	tok = strtok(free_mem.line, DELIMS);
-	if (tok == NULL)
+	new_node = malloc(sizeof(size_t));
+	if (!new_node)
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
-	tok = strtok(NULL, DELIMS);
-	if (tok == NULL)
+	if (!monty.arg || (is_digit(monty.arg) == -1))
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	while (tok[no] != '\0')
-	{
-		if ((tok[no] < '0' || tok[no] > '9') && tok[no] != '-')
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
-			exit(EXIT_FAILURE);
-		}
-		no++;
-	}
+	info = atoi(monty.arg);
 
-	new_node = malloc(sizeof(stack_t));
-	if (new_node == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-
-	new_node->n = atoi(tok);
+	new_node->n = info;
+	new_node->next = NULL;
 	new_node->prev = NULL;
-	new_node->next = *stack;
 
-	if (*stack != NULL)
+	if (!(*stack))
 	{
-		(*stack)->prev = new_node;
+		(*stack) = new_node;
+		return;
 	}
 
-	*stack = new_node;
+	new_node->next = (*stack);
+	(*stack)->prev = new_node;
+	(*stack) = new_node;
 }
-
 
 /**
  * pall - function that prints the data of all nodes in the stack
@@ -88,7 +73,6 @@ void free_stack(stack_t **stack)
 	if (stack == NULL || *stack == NULL)
 		return;
 
-	
 
 	while (current != NULL)
 	{

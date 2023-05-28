@@ -19,7 +19,6 @@ void pchar(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	
 
 	while (temp->prev != NULL)
 	{
@@ -47,7 +46,7 @@ void pchar(stack_t **stack, unsigned int line_number)
  */
 void pstr(stack_t **stack, unsigned int line_number)
 {
-	char *res = malloc(1024 *sizeof(char)); /*Assuming maximum length of string*/
+	char *res = malloc(1024 * sizeof(char)); /*Assuming maximum length of string*/
 	int index = 0;
 	stack_t *temp = *stack;
 	(void)line_number;

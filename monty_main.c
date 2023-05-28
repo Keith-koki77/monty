@@ -1,47 +1,45 @@
 #include "monty.h"
 
-doit free_mem;
-
 /**
  * main - function that opens amonty script file parsing.
- * ac: argument count
- * av: array arguments.
+ *@ac: argument count
+ *@av: array arguments.
  *
  * Return: EXIT_SUCCESS on success or EXIT_FAILURE on failure.
  */
+
 int main(int ac, char **av)
 {
-	unsigned int line_number = 0;
-	stack_t *stack = NULL;
-	size_t length = 0;
-	ssize_t size_line;
-	char *namefile;
-	namefile = av[1];
+	FILE *STREAM;
+	char *lnptr = NULL;
+	char *opcode;
+	const char DELIM[4] = " \t\n$";
+	size_t x = 0;
+	ssize_t flags;
+	void (*funx)(stack_t **, unsigned int);
 
-	free_mem.stream = fopen(namefile, "r");
-	if (ac != 2)
+	STREAM = args_check(ac, av);
+
+	while ((flags = getline(&lnptr, &x, STREAM) != -1))
 	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
+		monty.line++;
+		opcode = strtok(lnptr, DELIM);
+		if (opcode)
+		{
+			funx = opcode_select(opcode);
+
+			if (!funx)
+			{
+				dprintf(2, "L%d: unknown instruction %s\n", monty.line, opcode);
+				exit(EXIT_FAILURE);
+			}
+
+			monty.arg = strtok(NULL, DELIM);
+			funx(&monty.stack, monty.line);
+		}
 	}
-	if (!free_mem.stream)
-	{
-		fprintf(stderr, "Error, Can't open file %s\n", av[1]);
-		exit(EXIT_FAILURE);
-	}
 
-	size_line = getline(&free_mem.line, &length, free_mem.stream);
-
-	while (size_line >= 0)
-	{
-		line_number++;
-		opcode_select(&stack,line_number);
-		size_line = getline(&free_mem.line, &length, free_mem.stream);
-	}
-
-	free(free_mem.line);
-	free_stack(&stack);
-	fclose(free_mem.stream);
-
-	return (EXIT_SUCCESS);
+	free(lnptr);
+	fclose(STREAM);
+	return (0);
 }

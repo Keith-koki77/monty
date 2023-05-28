@@ -59,13 +59,13 @@ void rotr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 void queue_push(stack_t **stack, unsigned int line_number, int arg)
 {
 	stack_t *new_node;
+
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L%d: stack not found\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	
 	new_node = malloc(sizeof(stack_t));
 
 	if (new_node == NULL)
